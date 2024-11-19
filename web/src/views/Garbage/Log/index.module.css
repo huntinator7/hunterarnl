@@ -1,0 +1,19 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16px;
+  width: 300px;
+  label {
+    padding-bottom: 8px;
+  }
+  input,
+  select {
+    width: 100%;
+    font-size: 2rem;
+    border-radius: 0px;
+    padding: 2px;
+    border: none;
+    margin: 0;
+    box-sizing: content-box;
+  }
+}
