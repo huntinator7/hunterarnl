@@ -2,6 +2,9 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    match /me/{document=**} {
+      allow read, write: if request.auth.uid == 'MpeTREnsvneFU2xvofTfR9eQzJA3';
+    }
     match /{document=**} {
       allow read, write: if false;
     }

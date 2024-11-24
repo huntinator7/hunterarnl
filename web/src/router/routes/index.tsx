@@ -1,40 +1,21 @@
 import { Route } from "@solidjs/router";
-import { Home } from "@/views/Home";
-import { GarbageLog } from "@/views/Garbage/Log";
+import Home from "@/views/Home";
+import MePage from "@/views/Me/me";
+import Login from "@/components/Login";
 import { GarbageHistory } from "@/views/Garbage/History";
-import { AddMeal } from "@/views/Meals/AddMeal";
-import { Component } from "solid-js";
+import { AuthChecker } from "@/components/AuthChecker";
+import { GarbageLog } from "@/views/Garbage/Log";
 
-interface Route {
-  path: RoutePaths;
-  component: Component;
-}
-
-export type RoutePaths =
-  "/" |
-  "/garbage/log" |
-  "/garbage/history" |
-  "/meals/add" |
-  "/meals/schedule";
-
-
-export const routes: Route[] = [
-  {
-    path: "/",
-    component: Home,
-  },
-  {
-    path: "/garbage/log",
-    component: GarbageLog,
-  },
-  {
-    path: "/garbage/history",
-    component: GarbageHistory,
-  },
-  {
-    path: "/meals/add",
-    component: AddMeal,
-  },
-];
-
-export default routes.map((r) => <Route {...r} />);
+export default (
+  <>
+    <Route path="/" component={Home} />
+    <Route path="/login" component={Login} />
+    <Route path="/me" component={AuthChecker}>
+      <Route path="/" component={MePage} />
+      <Route path="/garbage">
+        <Route path="/history" component={GarbageHistory} />
+        <Route path="/log" component={GarbageLog} />
+      </Route>
+    </Route>
+  </>
+);
