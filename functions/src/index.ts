@@ -1,14 +1,14 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+import {beforeUserCreated, HttpsError} from "firebase-functions/v2/identity";
 
-import {onRequest} from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
+// The Firebase Admin SDK to access Firestore.
+import {initializeApp} from "firebase-admin/app";
+
+initializeApp();
+
+export const beforecreated = beforeUserCreated((event) => {
+  console.log(event);
+  throw new HttpsError("permission-denied", "You can't make a profile here");
+});
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
