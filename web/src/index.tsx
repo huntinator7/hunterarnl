@@ -1,5 +1,5 @@
 /* @refresh reload */
-import { initializeApp } from "firebase/app";
+import { FirebaseApp, initializeApp } from "firebase/app";
 import { createEffect, createSignal } from "solid-js";
 import { render } from "solid-js/web";
 
@@ -14,7 +14,7 @@ const firebaseConfig = {
   appId: "1:868745956489:web:c5efb2d9f53d2f76bdca58",
 };
 
-export const [app, setApp] = createSignal();
+export const [app, setApp] = createSignal<FirebaseApp>();
 setApp(initializeApp(firebaseConfig));
 
 const root = document.getElementById("root");
@@ -28,6 +28,7 @@ if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
 createEffect(async () => {
   if (app()) {
     const router = await import("@/router");
+    await import("solid-devtools");
 
     render(() => router.default, root!);
   }

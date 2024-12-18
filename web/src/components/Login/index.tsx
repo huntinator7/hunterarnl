@@ -1,6 +1,14 @@
 import { Component, createSignal } from "solid-js";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  initializeAuth,
+  browserLocalPersistence,
+} from "firebase/auth";
 import { Navigate, useNavigate } from "@solidjs/router";
+import { app } from "@/index";
+import { saveAuthToLS } from "@/services/auth";
 
 const provider = new GoogleAuthProvider();
 
@@ -35,6 +43,8 @@ function signIn() {
       const token = credential!.accessToken;
       // The signed-in user info.
       const user = result.user;
+      console.log("AUTH", auth, result);
+      saveAuthToLS(auth);
       setRedirUser("/me");
       // useNavigate()("/me");
       // IdP data available using getAdditionalUserInfo(result)
@@ -47,6 +57,7 @@ function signIn() {
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
       console.error(JSON.stringify(error));
+      saveAuthToLS(auth);
       setRedirUser("/");
       // ...
     });

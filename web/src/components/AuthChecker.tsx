@@ -1,11 +1,13 @@
 import { Navigate } from "@solidjs/router";
-import { getAuth } from "firebase/auth";
 import { ParentComponent } from "solid-js";
+import { getAuthFromLS } from "@/services/auth";
+import { getAuth } from "firebase/auth";
 
-const auth = getAuth();
+const auth = getAuthFromLS();
+const badAuth = getAuth();
 
 export const AuthChecker: ParentComponent = (props) => {
-  console.log(auth, auth.currentUser);
+  console.log(auth, auth.currentUser, badAuth, badAuth.currentUser);
   if (!auth.currentUser) {
     return <Navigate href="/" />;
   }
