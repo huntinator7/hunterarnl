@@ -82,7 +82,8 @@ export const Board: FunctionComponent = () => {
         {statuses?.map((s) => (
           <div className="bg-neutral-700" key={s.id}>
             <h2 className="border-b-2 border-neutral-300 h-16 text-3xl flex justify-start items-center pl-6">
-              {s.title}
+              {s.title} (
+              {issues?.filter((issue) => issue.status === s.id).length})
             </h2>
             <div className="px-2">
               {issues
@@ -90,7 +91,9 @@ export const Board: FunctionComponent = () => {
                 .map((issue) => (
                   <div className="bg-neutral-600 p-4 mt-4">
                     <div className="flex justify-between">
-                      <h3>{issue.id} - {issue.title}</h3>
+                      <h3>
+                        {issue.id} - {issue.title}
+                      </h3>
                       <button>View</button>
                     </div>
                     <div className="mt-2">{issue.description}</div>
