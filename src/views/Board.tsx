@@ -1,14 +1,13 @@
-import {
-  FunctionComponent,
-  PropsWithChildren,
-  ReducerAction,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { Tables } from "../types/database.types";
 import supabase from "../utils/supabase";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
+import { BrowserView, isMobile } from "react-device-detect";
+import { Title } from "../components/Title";
+import { IssuePriority } from "../components/IssuePriority";
+import { Breadcrumb, Breadcrumbs } from "../components/Breadcrumbs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 interface NewIssue {
   board_id: number;
@@ -30,6 +29,13 @@ export const Board: FunctionComponent = () => {
     title: "",
   };
   const [newIssue, setNewIssue] = useState<NewIssue>(defaultIssue);
+  const breadcrumbs: Breadcrumb[] = useMemo(
+    () => [
+      { to: "/board", text: "Boards" },
+      { to: `/board/${params.boardId}`, text: board?.name ?? "Current Board" },
+    ],
+    [board?.name, params.boardId]
+  );
 
   useEffect(() => {
     async function getBoards() {
@@ -75,28 +81,49 @@ export const Board: FunctionComponent = () => {
     await supabase.from("issue").insert(newIssue);
   }
 
+  const cols: Record<number, string> = {
+    1: "grid-cols-1",
+    2: "grid-cols-2",
+    3: "grid-cols-3",
+    4: "grid-cols-4",
+    5: "grid-cols-5",
+  };
+
   return (
     <div className="h-full flex flex-col">
-      <h1>{board?.name}</h1>
-      <div className="grid grid-flow-col gap-4 h-full my-4">
+      <Breadcrumbs routes={breadcrumbs} />
+      <Title text={board?.name!} />
+      <div
+        className={`grid ${
+          cols[isMobile ? 1 : statuses?.length || 1]
+        } gap-4 h-full my-4`}
+      >
         {statuses?.map((s) => (
-          <div className="bg-neutral-700" key={s.id}>
-            <h2 className="border-b-2 border-neutral-300 h-16 text-3xl flex justify-start items-center pl-6">
+          <div className="bg-neutral-700 flex flex-col" key={s.id}>
+            <h3 className="bg-sky-600 border-b-2 border-neutral-300 h-16 text-3xl flex justify-start items-center pl-6">
               {s.title} (
               {issues?.filter((issue) => issue.status === s.id).length})
-            </h2>
-            <div className="px-2">
+            </h3>
+            <div className="px-2 pb-2">
               {issues
                 ?.filter((issue) => issue.status === s.id)
                 .map((issue) => (
-                  <div className="bg-neutral-600 p-4 mt-4">
-                    <div className="flex justify-between">
-                      <h3>
-                        {issue.id} - {issue.title}
-                      </h3>
-                      <button>View</button>
-                    </div>
-                    <div className="mt-2">{issue.description}</div>
+                  <div
+                    key={issue.id}
+                    className="grid grid-cols-[1fr_50px] grid-rows-[40px_40px_40px_1fr] gap-3 bg-neutral-600 p-4 mt-4 text-white"
+                  >
+                    <h3>{issue.title}</h3>
+                    <span className="bg-neutral-700 h-full w-full flex justify-center items-center rounded-lg">
+                      {issue.id}
+                    </span>
+                    <div className="row-span-3">{issue.description}</div>
+                    <IssuePriority issue={issue} />
+                    <Link
+                      to={`/issue/${issue.id}`}
+                      className="bg-neutral-700 h-full w-full flex justify-center items-center rounded-lg text-neutral-300"
+                    >
+                      <FontAwesomeIcon icon={faEye} size="lg" />
+                    </Link>
                   </div>
                 ))}
               <button

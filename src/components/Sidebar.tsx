@@ -1,37 +1,52 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { useSidebar } from "../store/useSidebar";
+import { BrowserView, MobileView } from "react-device-detect";
 
-const SidebarLink = (props: {
-  to: string;
-  label: string;
-  expanded: boolean;
-}) => {
-  useEffect(() => {
-    console.log(props.expanded);
-  }, [props.expanded]);
+const SidebarLink = (props: { to: string; label: string }) => {
+  const { close } = useSidebar();
   return (
-    <Link to={props.to}>
+    <Link to={props.to} onClick={close}>
       <div
         className={`w-full h-16 bg-emerald-900 text-3xl text-emerald-100 px-5 flex items-center hover:bg-emerald-600`}
       >
-        <span>
-          {props.expanded ? props.label : props.label.substring(0, 1)}
-        </span>
+        <span>{props.label}</span>
       </div>
     </Link>
   );
 };
 
-export function Sidebar() {
-  const [expanded, setExpanded] = useState(true);
+const SidebarLinks = () => {
   return (
-    <div className={`flex flex-col h-full ${expanded ? "w-[400px]" : "w-16"} transition-all flex-grow`}>
-      <button className="h-16" onClick={() => setExpanded(!expanded)}>
-        {expanded ? "-" : "+"}
-      </button>
-      <SidebarLink to="/" label="Home" expanded={expanded} />
-      <SidebarLink to="/board" label="Boards" expanded={expanded} />
-      <SidebarLink to="/lifting" label="Lifting" expanded={expanded} />
-    </div>
+    <>
+      <SidebarLink to="/" label="Home" />
+      <SidebarLink to="/board" label="Boards" />
+      <SidebarLink to="/lifting" label="Lifting" />
+    </>
+  );
+};
+
+export function Sidebar() {
+  const { expanded } = useSidebar();
+  return (
+    <>
+      <BrowserView>
+        <div
+          className={`flex flex-col h-full overflow-hidden ${
+            expanded ? "w-[400px]" : "w-0"
+          } transition-all flex-grow`}
+        >
+          <SidebarLinks />
+        </div>
+      </BrowserView>
+      <MobileView>
+        <div
+          className={`flex flex-col h-full overflow-hidden ${
+            expanded ? "w-full" : "w-0"
+          } absolute transition-all flex-grow`}
+        >
+          <SidebarLinks />
+        </div>
+      </MobileView>
+    </>
   );
 }
