@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useMemo, useState } from "react";
 import { Tables } from "../types/database.types";
 import supabase from "../utils/supabase";
 import { Link, useParams } from "react-router";
-import { BrowserView, isMobile } from "react-device-detect";
+import { isMobile } from "react-device-detect";
 import { Title } from "../components/Title";
 import { IssuePriority } from "../components/IssuePriority";
 import { Breadcrumb, Breadcrumbs } from "../components/Breadcrumbs";
@@ -19,7 +19,8 @@ interface NewIssue {
 export const Board: FunctionComponent = () => {
   const params = useParams<{ boardId: string }>();
   const [board, setBoard] = useState<Tables<"board">>();
-  const [issues, setIssues] = useState<Tables<"issue">[]>();
+  const [issues, setIssues] =
+    useState<(Tables<"issue"> & { parent: number })[]>();
   const [statuses, setStatuses] = useState<Tables<"board_status">[]>();
   const [showModal, setShowModal] = useState(false);
   const defaultIssue = {
@@ -53,7 +54,7 @@ export const Board: FunctionComponent = () => {
         .select()
         .eq("board_id", Number(params.boardId));
       if (data) {
-        setIssues(data);
+        setIssues(data.map((d) => ({ ...d, parent: d.status })));
       }
     }
     async function getStatuses() {
@@ -92,7 +93,7 @@ export const Board: FunctionComponent = () => {
   return (
     <div className="h-full flex flex-col">
       <Breadcrumbs routes={breadcrumbs} />
-      <Title text={board?.name!} />
+      <Title text={board?.name ?? ""} />
       <div
         className={`grid ${
           cols[isMobile ? 1 : statuses?.length || 1]
@@ -106,18 +107,18 @@ export const Board: FunctionComponent = () => {
             </h3>
             <div className="px-2 pb-2">
               {issues
-                ?.filter((issue) => issue.status === s.id)
+                ?.filter((issue) => issue.parent === s.id)
                 .map((issue) => (
                   <div
                     key={issue.id}
-                    className="grid grid-cols-[1fr_50px] grid-rows-[40px_40px_40px_1fr] gap-3 bg-neutral-600 p-4 mt-4 text-white"
+                    className="grid grid-cols-[1fr_50px] grid-rows-[40px_40px_40px_1fr] gap-3 bg-neutral-600 p-4 mt-2 text-white"
                   >
                     <h3>{issue.title}</h3>
-                    <span className="bg-neutral-700 h-full w-full flex justify-center items-center rounded-lg">
+                    <span className="bg-neutral-700 h-full w-full flex justify-center items-center rounded-lg text-neutral-300">
                       {issue.id}
                     </span>
                     <div className="row-span-3">{issue.description}</div>
-                    <IssuePriority issue={issue} />
+                    <IssuePriority issue={issue} withDropdown />
                     <Link
                       to={`/issue/${issue.id}`}
                       className="bg-neutral-700 h-full w-full flex justify-center items-center rounded-lg text-neutral-300"

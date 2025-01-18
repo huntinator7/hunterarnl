@@ -4,6 +4,7 @@ import supabase from "../utils/supabase";
 import { useParams } from "react-router";
 import { type Breadcrumb, Breadcrumbs } from "../components/Breadcrumbs";
 import { Title } from "../components/Title";
+import { DraggableChild, DraggableParent } from "../components/Draggable";
 
 export const Issue = () => {
   const params = useParams<{ issueId: string }>();
@@ -17,7 +18,7 @@ export const Issue = () => {
       { to: `/board/${boardId}`, text: boardName },
       { to: `/issue/${params.issueId}`, text: issue?.title ?? "" },
     ];
-  }, [boardName, issue?.title, boardId]);
+  }, [boardName, issue?.title, boardId, params.issueId]);
 
   useEffect(() => {
     console.log("boardName changed", boardName);
@@ -53,6 +54,13 @@ export const Issue = () => {
       <div>{issue?.id}</div>
       <div>{issue?.title}</div>
       <div>{issue?.description}</div>
+      <DraggableParent id="1">
+        <DraggableChild />
+        <DraggableChild />
+      </DraggableParent>
+      <DraggableParent id="2" />
+      <DraggableParent id="3" />
+      <DraggableParent id="4" />
     </>
   );
 };
