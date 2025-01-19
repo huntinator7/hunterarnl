@@ -1,24 +1,28 @@
 import {
   createContext,
   FunctionComponent,
+  MutableRefObject,
   PropsWithChildren,
   useContext,
   useState,
 } from "react";
 
 interface DraggableContext {
-  parents: HTMLDivElement[];
-  addParent: (newParent: HTMLDivElement) => void;
+  parents: Record<string, MutableRefObject<HTMLDivElement>>;
+  addParent: (id: string, element: MutableRefObject<HTMLDivElement>) => void;
 }
 
 export const DraggableProvider: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
-  const [parents, setParents] = useState<HTMLDivElement[]>([]);
+  const [parents, setParents] = useState<
+    Record<string, MutableRefObject<HTMLDivElement>>
+  >({});
 
-  function addParent(newParent: HTMLDivElement) {
-    setParents([...parents, newParent]);
+  function addParent(id: string, element: MutableRefObject<HTMLDivElement>) {
+    setParents({ ...parents, [id]: element });
   }
+
   const store = { parents, addParent };
 
   return (
@@ -33,3 +37,4 @@ const DraggableContext = createContext({} as DraggableContext);
 export const useDraggable = () => {
   return useContext(DraggableContext);
 };
+

@@ -4,7 +4,6 @@ import supabase from "../utils/supabase";
 import { useParams } from "react-router";
 import { type Breadcrumb, Breadcrumbs } from "../components/Breadcrumbs";
 import { Title } from "../components/Title";
-import { DraggableChild, DraggableParent } from "../components/Draggable";
 
 export const Issue = () => {
   const params = useParams<{ issueId: string }>();
@@ -32,17 +31,13 @@ export const Issue = () => {
         .eq("id", Number(params.issueId));
       if (!data || !data.length) return;
       setIssue(data[0]);
-      console.log("board call");
       const { data: board } = await supabase
         .from("board")
         .select()
         .eq("id", data[0].board_id);
-      console.log("board", board);
       if (!board || !board.length) return;
-      console.log("before", boardId, boardName, breadcrumbs);
       setBoardId(board[0].id.toString());
       setBoardName(board[0].name);
-      console.log("after", boardId, boardName, breadcrumbs);
     }
     console.log("good call", params.issueId);
     getIssue();
@@ -54,13 +49,6 @@ export const Issue = () => {
       <div>{issue?.id}</div>
       <div>{issue?.title}</div>
       <div>{issue?.description}</div>
-      <DraggableParent id="1">
-        <DraggableChild />
-        <DraggableChild />
-      </DraggableParent>
-      <DraggableParent id="2" />
-      <DraggableParent id="3" />
-      <DraggableParent id="4" />
     </>
   );
 };

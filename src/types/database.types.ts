@@ -50,7 +50,9 @@ export type Database = {
           board_id: number
           created_at: string
           description: string | null
+          epic_id: number | null
           id: number
+          is_epic: boolean
           priority: number
           status: number
           title: string
@@ -59,7 +61,9 @@ export type Database = {
           board_id?: number
           created_at?: string
           description?: string | null
+          epic_id?: number | null
           id?: number
+          is_epic?: boolean
           priority?: number
           status?: number
           title?: string
@@ -68,10 +72,121 @@ export type Database = {
           board_id?: number
           created_at?: string
           description?: string | null
+          epic_id?: number | null
           id?: number
+          is_epic?: boolean
           priority?: number
           status?: number
           title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "issue_board_id_fkey"
+            columns: ["board_id"]
+            isOneToOne: false
+            referencedRelation: "board"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "issue_epic_id_fkey"
+            columns: ["epic_id"]
+            isOneToOne: false
+            referencedRelation: "issue"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "issue_status_fkey"
+            columns: ["status"]
+            isOneToOne: false
+            referencedRelation: "board_status"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lift: {
+        Row: {
+          category: string | null
+          created_at: string
+          id: number
+          name: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          id?: number
+          name?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          id?: number
+          name?: string | null
+        }
+        Relationships: []
+      }
+      lift_workout: {
+        Row: {
+          created_at: string
+          id: number
+          lift_id: number
+          reps: number | null
+          sets: number | null
+          weight: number | null
+          workout_id: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          lift_id: number
+          reps?: number | null
+          sets?: number | null
+          weight?: number | null
+          workout_id: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          lift_id?: number
+          reps?: number | null
+          sets?: number | null
+          weight?: number | null
+          workout_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lift_workout_lift_id_fkey"
+            columns: ["lift_id"]
+            isOneToOne: false
+            referencedRelation: "lift"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lift_workout_workout_id_fkey"
+            columns: ["workout_id"]
+            isOneToOne: false
+            referencedRelation: "workout"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workout: {
+        Row: {
+          created_at: string
+          id: number
+          location: string
+          total_time: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          location?: string
+          total_time: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          location?: string
+          total_time?: number
         }
         Relationships: []
       }

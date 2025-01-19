@@ -24,15 +24,15 @@ export const SidebarProvider: FunctionComponent<PropsWithChildren> = ({
     setExpanded(false);
   }
   function toggle() {
+    console.log("toggle", expanded);
     setExpanded(!expanded);
+    console.log("toggle 2", expanded);
   }
 
   const store = { expanded, open, close, toggle };
 
   return (
-    <SidebarContext.Provider value={store}>
-      {children}
-    </SidebarContext.Provider>
+    <SidebarContext.Provider value={store}>{children}</SidebarContext.Provider>
   );
 };
 

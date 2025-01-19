@@ -562,10 +562,6 @@ video {
   position: absolute;
 }
 
-.relative {
-  position: relative;
-}
-
 .left-0 {
   left: 0px;
 }
@@ -576,10 +572,6 @@ video {
 
 .row-span-3 {
   grid-row: span 3 / span 3;
-}
-
-.m-4 {
-  margin: 1rem;
 }
 
 .my-4 {
@@ -627,6 +619,10 @@ video {
   height: 250px;
 }
 
+.h-\[800px\] {
+  height: 800px;
+}
+
 .h-full {
   height: 100%;
 }
@@ -638,10 +634,6 @@ video {
 
 .h-screen {
   height: 100vh;
-}
-
-.h-\[400px\] {
-  height: 400px;
 }
 
 .w-0 {
@@ -740,6 +732,10 @@ video {
   overflow: hidden;
 }
 
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+
 .text-nowrap {
   text-wrap: nowrap;
 }
@@ -816,6 +812,11 @@ video {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .pb-2 {
@@ -976,6 +977,51 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+input,
+select {
+  margin: 0;
+  border: 2px solid #fff3;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 1.6rem;
+  box-sizing: border-box;
+  align-items: center;
+  line-height: normal;
+  overflow-x: clip;
+  overflow-y: clip;
+}
+
+select {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position: calc(100% - 20px) 19px,
+    calc(100% - 15px) 19px, calc(100% - 40px) 8px;
+  background-size: 5px 5px, 5px 5px, 1px 1.6rem;
+  background-repeat: no-repeat;
+}
+
+select:focus {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-image: linear-gradient(135deg, transparent 50%, gray 50%),
+    linear-gradient(45deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position: calc(100% - 20px) 19px,
+    calc(100% - 15px) 19px, calc(100% - 40px) 8px;
+  background-size: 5px 5px, 5px 5px, 1px 1.6rem;
+  background-repeat: no-repeat;
+}
+
+label {
+  font-size: 1.6rem;
+  margin-left: 4px;
 }
 
 @media (prefers-color-scheme: light) {

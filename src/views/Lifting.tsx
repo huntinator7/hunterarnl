@@ -1,7 +1,11 @@
+import { Title } from "../components/Title";
+import { CreateWorkout } from "../components/lifting/CreateWorkout";
+
 export function LiftingHome() {
   return (
     <>
-      <div>Lifting</div>
+      <Title text="Lifting" />
+      <CreateWorkout />
     </>
   );
 }

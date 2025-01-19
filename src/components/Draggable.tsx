@@ -1,5 +1,5 @@
 import { FunctionComponent, PropsWithChildren, useEffect, useRef } from "react";
-import { DraggableProvider } from "../store/useDraggable";
+import { useDraggable } from "../store/useDraggable";
 
 export const DraggableChild = () => {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -43,19 +43,16 @@ export const DraggableChild = () => {
 export const DraggableParent: FunctionComponent<
   PropsWithChildren & { id: string }
 > = ({ children, id }) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const { parents, addParent } = useDraggable();
   useEffect(() => {
-    if (Array.isArray(children)) {
-      console.log(children[0]);
-    }
-    console.log(children, id);
-  }, []);
-  return (
-    <div className="w-[400px] h-[400px] bg-neutral-600 m-4">{children}</div>
-  );
-};
+    console.log("adding parent", ref, id);
+    setTimeout(() => addParent(id, ref), parseInt(id) * 1000);
+    console.log(parents);
+  }, [ref]);
 
-export const Draggable: FunctionComponent<PropsWithChildren> = ({
-  children,
-}) => {
-  return <DraggableProvider>{children}</DraggableProvider>;
+  useEffect(() => {
+    console.log(parents, id);
+  }, [parents, id]);
+  return <div ref={ref}>{children}</div>;
 };
