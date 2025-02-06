@@ -14,16 +14,19 @@ export type Database = {
           created_at: string
           id: number
           name: string
+          tag: string
         }
         Insert: {
           created_at?: string
           id?: number
           name?: string
+          tag?: string
         }
         Update: {
           created_at?: string
           id?: number
           name?: string
+          tag?: string
         }
         Relationships: []
       }
@@ -52,6 +55,7 @@ export type Database = {
           description: string | null
           epic_id: number | null
           id: number
+          is_backlog: boolean
           is_epic: boolean
           priority: number
           status: number
@@ -63,6 +67,7 @@ export type Database = {
           description?: string | null
           epic_id?: number | null
           id?: number
+          is_backlog?: boolean
           is_epic?: boolean
           priority?: number
           status?: number
@@ -74,6 +79,7 @@ export type Database = {
           description?: string | null
           epic_id?: number | null
           id?: number
+          is_backlog?: boolean
           is_epic?: boolean
           priority?: number
           status?: number

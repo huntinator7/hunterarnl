@@ -21,6 +21,7 @@ const SidebarLinks = () => {
       <SidebarLink to="/" label="Home" />
       <SidebarLink to="/board" label="Boards" />
       <SidebarLink to="/lifting" label="Lifting" />
+      <SidebarLink to="/nutrition" label="Nutrition" />
     </>
   );
 };

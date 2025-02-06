@@ -8,9 +8,9 @@ export const Layout = () => {
     <div className="h-screen w-screen overflow-hidden flex flex-col">
       <SidebarProvider>
         <Topbar />
-        <div className="flex flex-row">
+        <div className="flex flex-row justify-center">
           <Sidebar />
-          <div className="px-8 w-full">
+          <div className="w-full">
             <Outlet />
           </div>
         </div>

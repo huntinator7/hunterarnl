@@ -15,13 +15,13 @@ interface Props {
 export const Breadcrumbs: FunctionComponent<Props> = ({ routes }) => {
   const nav = useLocation();
   return (
-    <div className="flex flex-row items-center">
+    <div className="flex flex-row flex-wrap items-center bg-neutral-100 text-black px-4 py-2">
       {routes.map((r, index) => (
         <Fragment key={r.to}>
           {nav.pathname === r.to ? (
-            <span className="text-lg">{r.text}</span>
+            <span className="text-3xl">{r.text}</span>
           ) : (
-            <Link to={r.to} className="text-lg">
+            <Link to={r.to} className="text-3xl">
               {r.text}
             </Link>
           )}

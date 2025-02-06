@@ -11,7 +11,6 @@ export const Issue = () => {
   const [boardId, setBoardId] = useState("Current Board");
   const [boardName, setBoardName] = useState("Current Board");
   const breadcrumbs: Breadcrumb[] = useMemo(() => {
-    console.log("BREAD", boardName);
     return [
       { to: "/board", text: "Boards" },
       { to: `/board/${boardId}`, text: boardName },
