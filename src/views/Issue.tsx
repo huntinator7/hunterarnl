@@ -11,13 +11,12 @@ export const Issue = () => {
   const [boardId, setBoardId] = useState("Current Board");
   const [boardName, setBoardName] = useState("Current Board");
   const breadcrumbs: Breadcrumb[] = useMemo(() => {
-    console.log("BREAD", boardName);
     return [
       { to: "/board", text: "Boards" },
       { to: `/board/${boardId}`, text: boardName },
       { to: `/issue/${params.issueId}`, text: issue?.title ?? "" },
     ];
-  }, [boardName, issue?.title, boardId]);
+  }, [boardName, issue?.title, boardId, params.issueId]);
 
   useEffect(() => {
     console.log("boardName changed", boardName);
@@ -31,17 +30,13 @@ export const Issue = () => {
         .eq("id", Number(params.issueId));
       if (!data || !data.length) return;
       setIssue(data[0]);
-      console.log("board call");
       const { data: board } = await supabase
         .from("board")
         .select()
         .eq("id", data[0].board_id);
-      console.log("board", board);
       if (!board || !board.length) return;
-      console.log("before", boardId, boardName, breadcrumbs);
       setBoardId(board[0].id.toString());
       setBoardName(board[0].name);
-      console.log("after", boardId, boardName, breadcrumbs);
     }
     console.log("good call", params.issueId);
     getIssue();
