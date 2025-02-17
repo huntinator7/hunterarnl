@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useMemo, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { Tables } from "../types/database.types";
 import supabase from "../utils/supabase";
 import { useParams } from "react-router";
@@ -9,24 +9,17 @@ import { Dropdown } from "../components/Dropdown";
 import { BoardIssue } from "../components/board/BoardIssue";
 
 export const Board: FunctionComponent = () => {
-  const params = useParams<{ boardId: string }>();
   const [board, setBoard] = useState<Tables<"board">>();
   const [issues, setIssues] =
     useState<(Tables<"issue"> & { parent: number })[]>();
   const [backlogIssues, setBacklogIssues] = useState<Tables<"issue">[]>();
   const [statuses, setStatuses] = useState<Tables<"board_status">[]>();
-  const breadcrumbs: Breadcrumb[] = useMemo(
-    () => [
-      { to: "/board", text: "Boards" },
-      { to: `/board/${params.boardId}`, text: board?.name ?? "Current Board" },
-    ],
-    [board?.name, params.boardId]
-  );
 
-  // const loaded = useMemo(
-  //   () => !!issues?.length && !!board && !!statuses?.length,
-  //   [issues?.length, board, statuses?.length]
-  // );
+  const params = useParams<{ boardId: string }>();
+  const breadcrumbs: Breadcrumb[] = [
+    { to: "/board", text: "Boards" },
+    { to: `/board/${params.boardId}`, text: board?.name ?? "Current Board" },
+  ];
 
   useEffect(() => {
     async function getBoards() {

@@ -103,9 +103,12 @@ export const CreateWorkout: FunctionComponent = () => {
       .insert(populateWorkout())
       .select();
     if (res.data?.[0]) {
-      await supabase
+      const res2 = await supabase
         .from("lift_workout")
         .insert(newLifts.map((nl) => populateLift(nl, res.data[0].id)));
+      if (res2.data) {
+        cancelCreateWorkout();
+      }
     }
   }
   return (

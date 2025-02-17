@@ -48,6 +48,59 @@ export type Database = {
         }
         Relationships: []
       }
+      hard100: {
+        Row: {
+          activity: number
+          complete: boolean
+          day: number
+          explanation: string | null
+          id: number
+        }
+        Insert: {
+          activity?: number
+          complete?: boolean
+          day?: number
+          explanation?: string | null
+          id?: number
+        }
+        Update: {
+          activity?: number
+          complete?: boolean
+          day?: number
+          explanation?: string | null
+          id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "hard100_activity_fkey"
+            columns: ["activity"]
+            isOneToOne: false
+            referencedRelation: "hard100_activity"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      hard100_activity: {
+        Row: {
+          abbreviation: string
+          description: string | null
+          id: number
+          name: string
+        }
+        Insert: {
+          abbreviation: string
+          description?: string | null
+          id?: number
+          name: string
+        }
+        Update: {
+          abbreviation?: string
+          description?: string | null
+          id?: number
+          name?: string
+        }
+        Relationships: []
+      }
       issue: {
         Row: {
           board_id: number
