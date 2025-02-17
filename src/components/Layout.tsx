@@ -10,7 +10,7 @@ export const Layout = () => {
         <Topbar />
         <div className="flex flex-row justify-center">
           <Sidebar />
-          <div className="w-full">
+          <div className="w-full overflow-auto">
             <Outlet />
           </div>
         </div>

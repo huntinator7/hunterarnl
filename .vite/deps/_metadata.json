@@ -1,0 +1,88 @@
+{
+  "hash": "8ec8d468",
+  "configHash": "1e5d93db",
+  "lockfileHash": "1dc39167",
+  "browserHash": "6f5a1f8c",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "4a4fa8b8",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "d81bd71e",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "b3772c4c",
+      "needsInterop": true
+    },
+    "react-router": {
+      "src": "../../node_modules/react-router/dist/development/index.mjs",
+      "file": "react-router.js",
+      "fileHash": "aa729c3c",
+      "needsInterop": false
+    },
+    "@supabase/auth-ui-react": {
+      "src": "../../node_modules/@supabase/auth-ui-react/dist/index.es.js",
+      "file": "@supabase_auth-ui-react.js",
+      "fileHash": "923b681d",
+      "needsInterop": false
+    },
+    "@supabase/auth-ui-shared": {
+      "src": "../../node_modules/@supabase/auth-ui-shared/dist/index.mjs",
+      "file": "@supabase_auth-ui-shared.js",
+      "fileHash": "136f5324",
+      "needsInterop": false
+    },
+    "react-device-detect": {
+      "src": "../../node_modules/react-device-detect/dist/lib.js",
+      "file": "react-device-detect.js",
+      "fileHash": "fd8d4821",
+      "needsInterop": true
+    },
+    "@supabase/supabase-js": {
+      "src": "../../node_modules/@supabase/supabase-js/dist/module/index.js",
+      "file": "@supabase_supabase-js.js",
+      "fileHash": "a5797e81",
+      "needsInterop": false
+    },
+    "@fortawesome/free-solid-svg-icons": {
+      "src": "../../node_modules/@fortawesome/free-solid-svg-icons/index.mjs",
+      "file": "@fortawesome_free-solid-svg-icons.js",
+      "fileHash": "c00e6851",
+      "needsInterop": false
+    },
+    "@fortawesome/react-fontawesome": {
+      "src": "../../node_modules/@fortawesome/react-fontawesome/index.es.js",
+      "file": "@fortawesome_react-fontawesome.js",
+      "fileHash": "bcc7f70e",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "browser-J6IYAAS7": {
+      "file": "browser-J6IYAAS7.js"
+    },
+    "browser-2YNC6QW7": {
+      "file": "browser-2YNC6QW7.js"
+    },
+    "chunk-OH4ZLUJL": {
+      "file": "chunk-OH4ZLUJL.js"
+    },
+    "chunk-W4EHDCLL": {
+      "file": "chunk-W4EHDCLL.js"
+    },
+    "chunk-7W32CK3N": {
+      "file": "chunk-7W32CK3N.js"
+    },
+    "chunk-EWTE5DHJ": {
+      "file": "chunk-EWTE5DHJ.js"
+    }
+  }
+}
