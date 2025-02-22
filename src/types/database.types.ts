@@ -86,18 +86,21 @@ export type Database = {
           description: string | null
           id: number
           name: string
+          order: number
         }
         Insert: {
           abbreviation: string
           description?: string | null
           id?: number
           name: string
+          order: number
         }
         Update: {
           abbreviation?: string
           description?: string | null
           id?: number
           name?: string
+          order?: number
         }
         Relationships: []
       }
