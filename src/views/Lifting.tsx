@@ -6,6 +6,7 @@ import { Tables } from "../types/database.types";
 import { CalendarFunctions } from "../utils/calendar";
 import { useSupabase } from "../utils/useSupabase";
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
+import { AddPushups } from "../components/lifting/AddPushups";
 
 export function LiftingHome() {
   const [pushups] = useSupabase(
@@ -38,7 +39,10 @@ export function LiftingHome() {
     <>
       <Title text="Lifting" />
       <div className="h-[calc(100vh-52px-64px)] overf low-y-auto p-8">
-        <CreateWorkout />
+        <div className="*:mr-4 [&>*:last-child]:mr-0">
+          <CreateWorkout />
+          <AddPushups />
+        </div>
         <div className="mt-4">
           <Calendar
             data={liftingCalendarData}
